@@ -24,6 +24,15 @@ app.get('/personagem/:id', (req, res) => {
   res.json(personagem);
 });
 
+app.get('/personagem/nome/:nome', (req, res) => {
+  const personagem = personagens.find(
+    p => p.nome && p.nome.toLowerCase() === req.params.nome.toLowerCase()
+  );
+
+  if (!personagem) return res.status(404).json({ message: 'Personagem não encontrado' });
+  res.json(personagem);
+});
+
 app.get('/personagem/jogador/:jogador', (req, res) => {
   const personagensDoJogador = personagens.filter(p => p.jogador === req.params.jogador);
   if (personagensDoJogador.length === 0) return res.status(404).json({ message: 'Jogador não encontrado' });
