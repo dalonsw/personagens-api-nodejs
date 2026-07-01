@@ -36,6 +36,12 @@ app.get('/personagem/classe/:classe', (req, res) => {
   res.json(personagensDaClasse);
 });
 
+app.get('/personagem/nome/:nome', (req, res) => {
+  const personagem = personagens.find(p => p.nome === req.params.nome);
+  if (!personagem) return res.status(404).json({ message: 'Personagem não encontrado' });
+  res.json(personagem);
+});
+
 app.put('/personagem/:id', (req, res) => {
   const personagem = personagens.find(p => p.id === parseInt(req.params.id));
   if (!personagem) return res.status(404).json({ message: 'Personagem não encontrado' });
