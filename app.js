@@ -30,6 +30,12 @@ app.get('/personagem/jogador/:jogador', (req, res) => {
   res.json(personagensDoJogador);
 });
 
+app.get('/personagem/classe/:classe', (req, res) => {
+  const personagensDaClasse = personagens.filter(p => p.classe === req.params.classe);
+  if (personagensDaClasse.length === 0) return res.status(404).json({ message: 'Classe não encontrada' });
+  res.json(personagensDaClasse);
+});
+
 app.put('/personagem/:id', (req, res) => {
   const personagem = personagens.find(p => p.id === parseInt(req.params.id));
   if (!personagem) return res.status(404).json({ message: 'Personagem não encontrado' });
